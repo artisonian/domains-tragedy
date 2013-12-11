@@ -22,7 +22,7 @@ http.createServer(function (req, res) {
         if (req.url === "/data") {
             console.log("process.domain before the call into `atmosphericData.getNextData`", process.domain);
 
-            atmosphericData.getNextData(function (data) {
+            atmosphericData.getNextData(d.bind(function (data) {
                 console.log("process.domain inside `atmosphericData.getNextData`", process.domain);
 
                 if (Math.random() > 0.8) {
@@ -33,7 +33,7 @@ http.createServer(function (req, res) {
                 res.statusCode = 200;
                 res.setHeader("Content-Type", "text/plain");
                 res.end("New data: " + data);
-            });
+            }));
         }
     });
 }).listen(1337);
